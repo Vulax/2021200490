@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "UPDATE Racun SET Stanje='$stanje' WHERE ID='$id'";
     
     if ($conn->query($sql) === TRUE) {
-        echo "<div class='alert alert-success'>Account updated successfully</div>";
+        echo "<div class='alert alert-success'>Račun uspešno izmenjen.</div>";
     } else {
         echo "<div class='alert alert-danger'>Error: " . $sql . "<br>" . $conn->error . "</div>";
     }

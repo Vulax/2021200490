@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['jmbg'])) {
     $accounts = array();
 
     if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+        while ($row = $result->fetch_assoc()) { //Punjenje racuna
             $accounts[] = $row;
         }
     }

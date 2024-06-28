@@ -66,12 +66,14 @@ $resultAccounts = $conn->query($sqlAccounts);
 </table>
 
 <script>
+    //Slusam selektor za promenu
     document.getElementById('selectUser').addEventListener('change', function() {
         var jmbg = this.value;
         var accountTable = document.getElementById('accountTable').getElementsByTagName('tbody')[0];
-
+        //Dinamicno prikazivanje sadrzaja bez refreshovanja stranice koristeci apija. 
+        //Drugi nacin bi mogao biti koristeci XML umesto JSONa.
         if (jmbg) {
-            fetch('/2021200490/api/getAccounts.php?jmbg=' + jmbg)
+            fetch('/2021200490/api/getAccounts.php?jmbg=' + jmbg) //getAccounts api prima jmbg kao parametar i vraca podatke o racunima datog jbmbga.
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {

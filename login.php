@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'config.php';
 
 // Provera ako je već prijavljen korisnik
 if (isset($_SESSION['username'])) {
@@ -12,7 +13,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    //Ovde bih dodao autententifikaciju sa bazom.
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = MD5(?)");
+    $stmt->bind_param("ss", $username, $password); 
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        $_SESSION['username'] = $username;
+        header("Location: racun/list.php");
+        exit();
+    } else {
+        echo '<script>alert("Neispravni kredincijali.")</script>';
+    }
+
+    $stmt->close();
+
+    /*
     // Stavio sam za primer da kredincijali budu admin i password.
     if ($username == 'admin' && $password == 'password') {
         $_SESSION['username'] = $username;
@@ -22,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '<script>alert("Neispravni kredincijali.")</script>';
             
     }
+                */
 }
 ?>
 
